@@ -1,4 +1,4 @@
-import { promises as fs } from 'fs';
+import {promises as fs} from 'fs';
 import crypto from 'crypto';
 import {Message} from "./types";
 
@@ -19,7 +19,7 @@ const fileDb = {
     },
     async addMessage(content: string) {
         const id = crypto.randomUUID();
-        const message: Message = { id, content };
+        const message: Message = {id, content};
         data.push(message);
         await this.save();
         return message;
@@ -30,4 +30,5 @@ const fileDb = {
 };
 
 export default fileDb;
+
 
