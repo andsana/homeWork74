@@ -1,6 +1,6 @@
-import {promises as fs} from 'fs';
+import { promises as fs } from 'fs';
 import crypto from 'crypto';
-import {Message} from "./types";
+import { Message, MessageWithoutId } from './types';
 
 const filename = './db.json';
 let data: Message[] = [];
@@ -14,15 +14,16 @@ const fileDb = {
             data = [];
         }
     },
-    async getMessages() {
+    async getMessages(): Promise<Message[]> {
         return data;
     },
-    async addMessage(content: string) {
+    async addMessage(content: string): Promise<Message> {
         const id = crypto.randomUUID();
-        const message: Message = {id, content};
-        data.push(message);
+        const datetime = new Date().toISOString();
+        const message: MessageWithoutId = { content, datetime };
+        data.push({ id, ...message });
         await this.save();
-        return message;
+        return { id, ...message };
     },
     async save() {
         await fs.writeFile(filename, JSON.stringify(data));
@@ -30,5 +31,3 @@ const fileDb = {
 };
 
 export default fileDb;
-
-

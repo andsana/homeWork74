@@ -1,5 +1,5 @@
 import express from 'express';
-import fileDb from "./fileDb";
+import fileDb from './fileDb';
 import messagesRouter from "./routers/messagesRouter";
 
 const app = express();
@@ -18,3 +18,4 @@ const run = async () => {
 };
 
 void run();
+
